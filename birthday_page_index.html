@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday ❤️</title>
+<style>
+  :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b81;}
+  html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans Bengali",sans-serif;background:
+    radial-gradient(circle at 10% 10%, rgba(255,107,129,0.07), transparent 10%),
+    linear-gradient(180deg,#061021 0%, #071427 100%);color:#e6eef8}
+  .wrap{max-width:900px;margin:30px auto;padding:20px}
+  header{display:flex;justify-content:space-between;align-items:center}
+  h1{margin:0;font-size:1.6rem;letter-spacing:0.2px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;margin-top:16px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+  .countdown{display:flex;gap:10px;justify-content:center;font-weight:700;margin:14px 0}
+  .pill{background:rgba(255,255,255,0.04);padding:12px 14px;border-radius:10px;min-width:68px;text-align:center}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  button{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:white;font-weight:600;cursor:pointer}
+  input[type=file]{display:none}
+  label.filebtn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;cursor:pointer}
+  #message{font-size:1.05rem;padding:10px;min-height:70px;white-space:pre-wrap}
+  #collagePreview{display:block;margin:10px auto;border-radius:8px;max-width:100%}
+  footer{margin-top:14px;text-align:center;color:rgba(230,238,248,0.6);font-size:0.9rem}
+  .center{display:flex;justify-content:center;align-items:center;gap:10px;flex-direction:column}
+  details{margin-top:12px;text-align:left;color:rgba(230,238,248,0.9)}
+  pre{white-space:pre-wrap;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Birthday Surprise — Make it special 🎉</h1>
+    <div>Made by you • Simple page</div>
+  </header>
+
+  <div class="card">
+    <div class="center">
+      <div style="font-size:0.95rem;color:rgba(230,238,248,0.85)">Countdown to her birthday (next 28 Sep)</div>
+      <div id="countdown" class="countdown" aria-live="polite">
+        <div class="pill"><div id="d">--</div>days</div>
+        <div class="pill"><div id="h">--</div>hrs</div>
+        <div class="pill"><div id="m">--</div>mins</div>
+        <div class="pill"><div id="s">--</div>secs</div>
+      </div>
+
+      <div style="max-width:760px;text-align:center;color:rgba(230,238,248,0.75)" id="prepText">
+        ব্রাউজার অটোপ্লে পলিসির কারণে midnight-এ স্বয়ংক্রিয়ভাবে শব্দ/সঙ্গীত চালাতে হলে <strong>Prepare</strong> চাপ দিয়ে প্রস্তুতি নিতে হবে।
+      </div>
+
+      <div class="controls">
+        <button id="prepareBtn">Prepare for 12:00 surprise</button>
+        <button id="copyLink">Copy share link</button>
+        <label class="filebtn" for="images">Upload photos</label>
+        <input id="images" type="file" accept="image/*" multiple>
+        <label class="filebtn" for="audio">Upload voice/audio</label>
+        <input id="audio" type="file" accept="audio/*,video/*">
+      </div>
+
+      <canvas id="collage" style="display:none"></canvas>
+      <img id="collagePreview" alt="Collage preview" />
+
+      <div class="card" style="width:100%;margin-top:12px">
+        <div contenteditable="true" id="message" aria-label="Birthday message">Happy Birthday to the most special person in my life! ❤️
+তোমার সাথে কাটানো প্রতিটা মুহূর্ত আমার জন্য আশীর্বাদ।
+তুমি আমার দিনের হাসি, রাতের স্বপ্ন, আর প্রতিটা শ্বাসের প্রেরণা।
+আজকের এই দিনটা শুধু তোমার নয়, আমার জন্যও সবচেয়ে সুন্দর দিন—
+কারণ আজকে পৃথিবীতে তুমি এসেছিলে।
+
+আমি চাই তুমি সবসময় হাসো, সুখে থেকো, আর স্বপ্ন পূর্ণ হোক।
+Good or bad—whatever comes, I promise I’ll be right beside you. 💕
+
+Happy Birthday, My Love 🎂🎉</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+          <button id="saveBtn">Save page as file (for hosting)</button>
+          <button id="downloadCollage">Download Collage</button>
+        </div>
+      </div>
+
+      <details id="voiceScript">
+        <summary style="cursor:pointer">Voice Note Script (tap to expand) — রেকর্ড করার জন্য লাইন-বাই-লাইন</summary>
+        <pre>
+Start soft & slow:
+"Hey love... you know what today is? 🥰
+It's not just your birthday, it's the day the world became brighter... because you were born."
+
+Middle (put feeling here):
+"তুমি আমার জীবনের সবচেয়ে special মানুষ। তোমার হাসিতে আমি বাঁচি, তোমার স্বপ্নে আমি নিজের future দেখি। আমি চাই তুমি আজকে আর সব দিন এমনই খুশি থাকো।"
+
+Ending (sweet & short):
+"So... Happy Birthday, my love! 🎂❤️
+And remember—no matter what, I'll always be right here, holding your hand, making you smile."
+
+Tips: record in a quiet room, speak naturally, take small pauses between lines. Aim for ~25-40 seconds total.
+        </pre>
+      </details>
+
+    </div>
+  </div>
+
+  <div id="surpriseCard" class="card" style="margin-top:18px;display:none;text-align:center">
+    <h2 id="surpriseTitle">Happy Birthday ❤️</h2>
+    <p id="surpriseMsg" style="white-space:pre-wrap"></p>
+    <audio id="bgAudio" controls style="width:100%;display:none"></audio>
+    <div style="margin-top:10px">Show this to her at midnight ✨</div>
+  </div>
+
+  <footer>Host on GitHub Pages or Netlify — or just open locally. Need help? I can customize.</footer>
+</div>
+
+<script>
+  // compute next Sep 28 at 00:00 local time
+  function nextBirthday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    let target = new Date(year, 8, 28, 0, 0, 0); // month 8 = September
+    if (now >= target) target = new Date(year + 1, 8, 28, 0, 0, 0);
+    return target;
+  }
+
+  const target = nextBirthday();
+  const dEl = document.getElementById('d'), hEl = document.getElementById('h'), mEl = document.getElementById('m'), sEl = document.getElementById('s');
+  function tick(){
+    const now = new Date();
+    let diff = Math.max(0, target - now);
+    const days = Math.floor(diff / (1000*60*60*24));
+    diff -= days*(1000*60*60*24);
+    const hrs = Math.floor(diff/(1000*60*60));
+    diff -= hrs*(1000*60*60);
+    const mins = Math.floor(diff/(1000*60));
+    diff -= mins*(1000);
+    const secs = Math.floor(diff/1000);
+    dEl.textContent = days; hEl.textContent = String(hrs).padStart(2,'0'); mEl.textContent = String(mins).padStart(2,'0'); sEl.textContent = String(secs).padStart(2,'0');
+    if (days===0 && hrs===0 && mins===0 && secs===0) triggerSurprise();
+  }
+  setInterval(tick, 250);
+  tick();
+
+  // Prepare button: allow audio play later
+  const prepareBtn = document.getElementById('prepareBtn');
+  const bgAudio = document.getElementById('bgAudio');
+  let prepared = false;
+  prepareBtn.addEventListener('click', async ()=>{
+    try{
+      // try to play/pause a tiny silent audio to unlock autoplay privileges
+      const silent = new Audio();
+      silent.src = "data:audio/mp3;base64,//uQZ";
+      await silent.play().catch(()=>{});
+    }catch(e){}
+    prepared = true;
+    prepareBtn.textContent = "Prepared ✅";
+    prepareBtn.disabled = true;
+  });
+
+  // Copy link (simple): copies current url
+  document.getElementById('copyLink').addEventListener('click', ()=>{
+    navigator.clipboard?.writeText(location.href).then(()=>alert('Link copied — send it to her!'), ()=>alert('Copy failed.'))
+  });
+
+  // image upload and collage generation
+  const imagesInput = document.getElementById('images');
+  const collageCanvas = document.getElementById('collage');
+  const collagePreview = document.getElementById('collagePreview');
+  document.getElementById('downloadCollage').addEventListener('click', ()=>{
+    if(!collagePreview.src) return alert('No collage yet. Upload images first.');
+    const a = document.createElement('a'); a.href = collagePreview.src; a.download='collage.png'; a.click();
+  });
+
+  imagesInput.addEventListener('change', async (e)=>{
+    const files = Array.from(e.target.files).slice(0,6);
+    if(files.length===0) return;
+    const imgs = await Promise.all(files.map(f=>new Promise(res=>{
+      const i = new Image(); i.onload=()=>res(i); i.src=URL.createObjectURL(f);
+    })));
+    // simple grid collage
+    const cols = imgs.length<=2?imgs.length:3;
+    const rows = Math.ceil(imgs.length/cols);
+    const size = 600;
+    collageCanvas.width = cols * size;
+    collageCanvas.height = rows * size;
+    const ctx = collageCanvas.getContext('2d');
+    ctx.fillStyle = '#071427';
+    ctx.fillRect(0,0,collageCanvas.width,collageCanvas.height);
+    imgs.forEach((img,idx)=>{
+      const cx = (idx%cols)*size, cy = Math.floor(idx/cols)*size;
+      // draw with cover-like scaling
+      const ar = img.width/img.height;
+      let dw = size, dh = size, sx=0, sy=0, sw=img.width, sh=img.height;
+      if(ar>1){ // wide
+        sh = img.height; sw = sh*ar; sx = (img.width - sw)/2;
+      } else {
+        sw = img.width; sh = sw/ar; sy = (img.height - sh)/2;
+      }
+      ctx.drawImage(img, sx, sy, sw, sh, cx, cy, dw, dh);
+    });
+    collagePreview.src = collageCanvas.toDataURL('image/png');
+  });
+
+  // audio upload
+  const audioInput = document.getElementById('audio');
+  audioInput.addEventListener('change', (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    const url = URL.createObjectURL(f);
+    bgAudio.src = url; bgAudio.style.display = 'block';
+  });
+
+  // save page as file (zip-free): simply serialize current HTML (basic)
+  document.getElementById('saveBtn').addEventListener('click', ()=>{
+    const docHtml = '<!doctype html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([docHtml], {type:'text/html'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='birthday_page.html'; a.click();
+  });
+
+  // trigger surprise: show message & play audio if prepared
+  function triggerSurprise(){
+    const sc = document.getElementById('surpriseCard');
+    document.getElementById('surpriseMsg').textContent = document.getElementById('message').textContent;
+    sc.style.display = 'block';
+    // attempt autoplay if prepared
+    if(prepared && bgAudio.src){
+      bgAudio.play().catch(()=>{ /* autoplay blocked */ });
+    }
+    // add some simple confetti hearts
+    for(let i=0;i<36;i++){
+      const el = document.createElement('div');
+      el.textContent='❤';
+      el.style.position='fixed';
+      el.style.left = Math.random()*100+'%';
+      el.style.top = Math.random()*20+'%';
+      el.style.fontSize = (12+Math.random()*36)+'px';
+      el.style.opacity=0.9;
+      el.style.transform = 'translateY(0)';
+      el.style.transition = 'transform 3s linear, opacity 3s';
+      document.body.appendChild(el);
+      setTimeout(()=>{ el.style.transform = 'translateY(110vh)'; el.style.opacity=0 }, 50);
+      setTimeout(()=>el.remove(), 4000);
+    }
+  }
+
+  // Accessibility: if user opens exactly at midnight and no JS interval fired yet:
+  window.addEventListener('load', ()=>{ if(new Date() >= target) triggerSurprise(); });
+
+</script>
+</body>
+</html>
